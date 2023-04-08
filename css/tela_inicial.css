@@ -70,12 +70,8 @@ h1{
     box-shadow: 0px 30px 40px #00000056;
 }
 
-img{
-    width: 80px;
-    
-}
 
-.card > button{
+button{
     width: 90%;
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
@@ -89,8 +85,12 @@ img{
     letter-spacing: 1.2px;
 }
 
+.card > img{
+    width: 80px;
+}
+
 .btnSair{
-    width: 40%;
+    width: 80%;
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
     text-transform: uppercase;
@@ -101,9 +101,11 @@ img{
     font-size: 15px;
     background: var(--cor-branco);
     box-shadow: 0px 10px 40px #00000056;
-    letter-spacing: 3px;
 }
 
-a:link{
+a{
     text-decoration: none;
+    color: black;
+    width: 100%;
+    padding: 0.2rem 1rem;
 }
