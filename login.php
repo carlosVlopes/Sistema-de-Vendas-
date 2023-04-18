@@ -1,47 +1,22 @@
 <?php
-    include("conexao.php");
-    require_once 'functions/Verificar.php';
+   
+   require_once 'DAO/UsuarioDAO.php';
     
     if(isset($_POST['btnLogin'])){
-        $nome_usuario = ltrim(trim($_POST['nome_usuario']));
-        $senha = ltrim(trim($_POST['senha']));
+        $nome_usuario = trim($_POST['nome_usuario']);
+        $senha = trim($_POST['senha']);
 
-        $objVerificar = new Verificar();
-        $resultado = $objVerificar->Verificacao($nome_usuario,$senha);
+        $dao = new UsuarioDAO();
+        $ret = $dao->ValidarLogin($nome_usuario,$senha);
 
-        if($resultado == -1){
+        if($ret == -1){
             $msgError = "Preencha o campo de Usuário!";
         }
-        elseif($resultado == -2){
+        elseif($ret == -2){
             $msgError = "Preencha o campo de Senha!";
         }
         else{
-            // limpar string para evitar falhas de verificação
-            $nome_usuario = $mysqli->real_escape_string($_POST['nome_usuario']);
-            $senha = $mysqli->real_escape_string($_POST['senha']);
-
-            // pegar os dados da tabela Usuários
-            $sql_code = "SELECT * FROM usuarios WHERE usuario = '$nome_usuario' AND senha = '$senha'";
-            $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: ");
-
-            // verificar quantidades de registros na tabela
-            $quantidade = $sql_query->num_rows;
-
-            if($quantidade == 1){
-                $usuario = $sql_query->fetch_assoc();
-
-                if(!isset($_SESSION)){
-                    session_start();
-                }
-                $_SESSION['id'] = $usuario['id'];
-                $_SESSION['usuario'] = $usuario['usuario'];
-
-                header('Location: tela_inicial.php');
-
-            }
-            else{
-                $msgError = 'Falha ao Logar! Usuário ou Senha incorretos';
-            }
+            
         }
     }
 
